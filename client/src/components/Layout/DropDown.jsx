@@ -10,7 +10,7 @@ const DropDown = ({ categoriesData }) => {
   };
 
   return (
-    <div className="absolute bg-white w-[270px] rounded-b-md shadow-sm ">
+    <div className="absolute bg-white w-[270px] rounded-b-md shadow-sm z-10">
       {categoriesData &&
         categoriesData.map((category, index) => (
           <div

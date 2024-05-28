@@ -26,8 +26,8 @@ export const navItems = [
 export const brandingData = [
   {
     id: 1,
-    title: "Free Shipping",
-    Description: "From all orders over 100$",
+    title: "Delivery",
+    Description: "All over Nepal",
     icon: (
       <svg
         width="36"
@@ -198,7 +198,7 @@ export const categoriesData = [
   },
   {
     id: 2,
-    title: "cosmetics and body care",
+    title: "Cosmetics and Body Care",
     subTitle: "",
     image_Url:
       "https://indian-retailer.s3.ap-south-1.amazonaws.com/s3fs-public/2021-07/kosme1.png",
@@ -229,13 +229,14 @@ export const categoriesData = [
     title: "Gifts",
     subTitle: "",
     image_Url:
-      "https://securecdn.pymnts.com/wp-content/uploads/2014/11/Gifts-Photo-700x489.jpg",
+      "https://img.freepik.com/free-photo/3d-render-gift-box-with-ribbon-present-package_107791-15904.jpg?size=338&ext=jpg&ga=GA1.1.1224184972.1715644800&semt=ais_user",
   },
   {
     id: 7,
     title: "Pet Care",
     subTitle: "",
-    image_Url: "https://cdn.openpr.com/T/c/Tc15444071_g.jpg",
+    image_Url:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3eh8fSliphYXDPbvUqohM8C3AY_m64dCSdg12_WypWQ&s",
   },
   {
     id: 8,
@@ -271,11 +272,11 @@ export const productData = [
     image_Url: [
       {
         public_id: "test",
-        url: "https://www.istorebangladesh.com/images/thumbs/0000286_macbook-pro-m1_550.png",
+        url: "https://qualitycomputer.com.np/web/image/product.template/40599/image_1024?unique=c51fa13",
       },
       {
         public_id: "test",
-        url: "https://www.istorebangladesh.com/images/thumbs/0000286_macbook-pro-m1_550.png",
+        url: "https://qualitycomputer.com.np/web/image/product.template/40599/image_1024?unique=c51fa13",
       },
     ],
     shop: {
@@ -331,7 +332,7 @@ export const productData = [
     image_Url: [
       {
         public_id: "test",
-        url: "https://www.istorebangladesh.com/images/thumbs/0000286_macbook-pro-m1_550.png",
+        url: "https://qualitycomputer.com.np/web/image/product.template/40599/image_1024?unique=c51fa13",
       },
       {
         public_id: "test",
@@ -393,7 +394,7 @@ export const productData = [
     image_Url: [
       {
         public_id: "test",
-        url: "https://mirzacdns3.s3.ap-south-1.amazonaws.com/cache/catalog/RLV0015/2-800x800.jpg",
+        url: "https://img.freepik.com/premium-photo/running-shoes-white-background_10541-635.jpg",
       },
       {
         public_id: "test",

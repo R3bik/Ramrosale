@@ -19,6 +19,7 @@ module.exports = {
         "primary-black": "#222831",
         "secondary-black": "#31363F",
         third: "#76ABAE",
+        primarybg: "#EEEEEE",
       },
     },
   },
