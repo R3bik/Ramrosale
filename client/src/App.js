@@ -13,7 +13,9 @@ import {
   FAQPage,
   HomePage,
   LoginPage,
+  ProductDetailsPage,
   ProductsPage,
+  ProfilePage,
   SignupPage,
 } from "./routes/Routes";
 import { AuthProvider } from "./context/AuthContext.js";
@@ -36,9 +38,11 @@ function App() {
             element={<ActivationPage />}
           />
           <Route path="/products" element={<ProductsPage />} />
+          <Route path="/product/:name" element={<ProductDetailsPage />} />
           <Route path="/best-selling" element={<BestSellingPage />} />
           <Route path="/events" element={<EventsPage />} />
           <Route path="/faq" element={<FAQPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
         </Routes>
         <ToastContainer
           position="top-center"

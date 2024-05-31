@@ -171,7 +171,6 @@ const Header = () => {
             {isAuthenticated ? (
               <div className="relative cursor-pointer mr-[15px] flex items-center">
                 <Link to="/profile">
-                  <CgProfile size={30} color="rgb(255 255 255 / 83%)" />
                   <span className="ml-2 text-white capitalize font-semibold">
                     {user && user.name}
                   </span>
