@@ -21,6 +21,7 @@ import {
   ShopCreatePage,
   SignupPage,
 } from "./routes/Routes";
+import { ShopDashboardPage } from "./routes/ShopRoutes";
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import PublicRoute from "./routes/PublicRoute"; // Import PublicRoute
@@ -90,6 +91,10 @@ function App() {
           />
           {/* shop Routes */}
           <Route path="/shop-create" element={<ShopCreatePage />} />
+
+          {/*ProtectedRoute is not applied*/}
+
+          <Route path="/Dashboard" element={<ShopDashboardPage />} />
         </Routes>
         <ToastContainer
           position="top-center"
