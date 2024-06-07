@@ -5,6 +5,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import axios from "axios";
 import { server } from "../../server";
 import { toast } from "react-toastify";
+
 const Signup = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -13,6 +14,17 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Password validation
+    const passwordRegex =
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    if (!passwordRegex.test(password)) {
+      toast.error(
+        "Password must be at least 8 characters long and contain at least one letter, one number, and one special character."
+      );
+      return;
+    }
+
     console.log("Form data:", { name, email, password });
     axios
       .post(`${server}/user/create-user`, { name, email, password })
@@ -39,7 +51,7 @@ const Signup = () => {
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <label
-                htmlFor="email"
+                htmlFor="name"
                 className="block text-sm font-medium text-gray-700"
               >
                 Full Name

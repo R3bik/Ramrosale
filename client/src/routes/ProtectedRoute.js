@@ -1,12 +1,12 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext"; // Correct import path
+import { useAuth } from "../context/AuthContext";
 
-const ProtectedRoute = ({ children, redirectTo }) => {
-  const { isAuthenticated } = useAuth();
+const ProtectedRoute = ({ children }) => {
+  const { user, isAuthenticated } = useAuth();
 
   if (!isAuthenticated) {
-    return <Navigate to={redirectTo} />;
+    return <Navigate to="/login" />;
   }
 
   return children;

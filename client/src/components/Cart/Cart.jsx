@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { RxCross1 } from "react-icons/rx";
-import styles from "../../styles/styles";
 import { IoBagHandleOutline } from "react-icons/io5";
 import { HiOutlineMinus, HiPlus } from "react-icons/hi";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import styles from "../../styles/styles";
 
 const Cart = ({ setOpenCart }) => {
-  const cartData = [
+  const [cartData, setCartData] = useState([
     {
       name: "Iphone 14 Pro Max 256GB",
       description: "paat",
@@ -23,7 +23,17 @@ const Cart = ({ setOpenCart }) => {
       description: "paat",
       price: 1050,
     },
-  ];
+  ]);
+
+  const handleRemove = (index) => {
+    const newCartData = [...cartData];
+    newCartData.splice(index, 1);
+    setCartData(newCartData);
+    toast.success("Item removed from cart");
+  };
+
+  const totalPrice = cartData.reduce((acc, item) => acc + item.price, 0);
+
   return (
     <div className="fixed top-0 left-0 w-full bg-[#0000004b] h-screen z-10">
       <div className="fixed top-0 right-0 h-full w-[80%] 800px:w-[25%] bg-white flex flex-col overflow-y-scroll justify-between shadow-sm">
@@ -38,19 +48,30 @@ const Cart = ({ setOpenCart }) => {
           {/* Item length */}
           <div className={`${styles.noramlFlex} p-4 text-black`}>
             <IoBagHandleOutline size={25} className="text-black" />
-            <h5 className="pl-2 text-[20px] font-[500]">0 items</h5>
+            <h5 className="pl-2 text-[20px] font-[500]">
+              {cartData.length} {cartData.length === 1 ? "item" : "items"}
+            </h5>
           </div>
 
           {/* cart Single Items */}
           <br />
           <div className="w-full border-t">
             {cartData &&
-              cartData.map((i, index) => <CartSingle key={index} data={i} />)}
+              cartData.map((item, index) => (
+                <CartSingle
+                  key={index}
+                  data={item}
+                  onRemove={() => handleRemove(index)}
+                />
+              ))}
           </div>
         </div>
         <div className="px-5 mb-3">
+          <div className="text-right mb-3 text-[18px]">
+            <strong>Total: </strong>${totalPrice}
+          </div>
           {/* checkout buttons */}
-          <Link to="/checkout">
+          <Link to="/Checkoutt">
             <div
               className={`h-[45px] flex items-center justify-center w-[100%] bg-[#e44343] rounded-[5px]`}
             >
@@ -65,7 +86,7 @@ const Cart = ({ setOpenCart }) => {
   );
 };
 
-const CartSingle = ({ data }) => {
+const CartSingle = ({ data, onRemove }) => {
   const [value, setValue] = useState(1);
   const totalPrice = data.price * value;
 
@@ -92,7 +113,6 @@ const CartSingle = ({ data }) => {
           alt=""
           className="w-[130px] h-min ml-2 mr-2 rounded-[5px]"
         />
-
         <div className="pl-[5px]">
           <h1 className="text-black">{data.name}</h1>
           <h4 className="font-[400] text-[15px] text-[#00000082]">
@@ -102,7 +122,7 @@ const CartSingle = ({ data }) => {
             Total - ${totalPrice}
           </h4>
         </div>
-        <RxCross1 className="cursor-pointer text-black" />
+        <RxCross1 className="cursor-pointer text-black" onClick={onRemove} />
       </div>
     </div>
   );

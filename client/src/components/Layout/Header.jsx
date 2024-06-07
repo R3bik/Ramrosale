@@ -1,11 +1,10 @@
-// src/components/Header.jsx
 import React, { useState, useEffect, useRef } from "react";
 import {
   AiOutlineHeart,
   AiOutlineSearch,
   AiOutlineShoppingCart,
 } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IoIosArrowDown, IoIosArrowForward } from "react-icons/io";
 import { BiMenuAltLeft } from "react-icons/bi";
 import { categoriesData, productData } from "../../static/data";
@@ -16,6 +15,9 @@ import { useAuth } from "../../context/AuthContext";
 import { CgProfile } from "react-icons/cg";
 import Cart from "../Cart/Cart";
 import Wishlist from "../Wishlist/Wishlist";
+import { server } from "../../server";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 const Header = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -27,6 +29,20 @@ const Header = () => {
 
   const [openCart, setOpencart] = useState(false);
   const [openWishlist, setOpenWishlist] = useState(false);
+
+  const navigate = useNavigate(); // Correctly use useNavigate hook
+
+  const logoutHandler = async () => {
+    try {
+      const res = await axios.get(`${server}/user/logout`);
+      toast.success(res.data.message);
+      logout();
+      navigate("/");
+      window.location.reload(true);
+    } catch (error) {
+      toast.error("Failed to logout. Please try again.");
+    }
+  };
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -80,8 +96,8 @@ const Header = () => {
               <div className="absolute min-h-[30vh] bg-slate-50 shadow-sm-2 z-[9] p-4">
                 {searchData.map((product) => (
                   <Link
-                    key={product.id}
-                    to={`/product/${product.id}`}
+                    key={product.name}
+                    to={`/product/${product.name}`}
                     onClick={() => setShowDropdown(false)}
                   >
                     <div className="w-full flex items-start py-3">
@@ -100,7 +116,7 @@ const Header = () => {
 
           {/* seller or not */}
           <div className="w-[150px] bg-third h-[50px] my-3 flex items-center justify-center rounded-xl cursor-pointer">
-            <Link to="">
+            <Link to="/shop-create">
               <h1 className="text-gray-800 flex items-center  font-semibold">
                 Become Seller <IoIosArrowForward className="ml-1" />
               </h1>
@@ -177,7 +193,7 @@ const Header = () => {
                 </Link>
 
                 <button
-                  onClick={logout}
+                  onClick={logoutHandler}
                   className="ml-4 bg-red-500 text-white px-2 py-1 rounded"
                 >
                   Logout
