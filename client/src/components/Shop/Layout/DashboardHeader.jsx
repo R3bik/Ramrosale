@@ -20,9 +20,9 @@ const DashboardHeader = () => {
 
 ////////////////////////////////////////////////////////////////////////////// ADDED FOR TESTING
 
-   const { isAuthenticated, user, logout } = useAuth();
+    const { isAuthenticated, user, logout } = useAuth();
 
- const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const logoutHandler = async () => {
       try {
@@ -103,7 +103,7 @@ const DashboardHeader = () => {
             <div className={`${styles.noramlFlex}`}>
               {isAuthenticated ? (
                 <div className="relative cursor-pointer mr-[15px] flex items-center">
-                  <Link to="/profile">
+                  <Link to="/shop/shophomepage">
                     <span className="ml-2 text-white capitalize font-semibold">
                       {user && user.name}
                     </span>
