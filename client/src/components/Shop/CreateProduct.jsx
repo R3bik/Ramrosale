@@ -3,7 +3,6 @@ import { AiOutlinePlusCircle } from "react-icons/ai";
 import { categoriesData } from "../../static/data";
 
 const CreateProduct = () => {
-  const [prevImages, setPrevImages] = useState([]);
   const [images, setImages] = useState([]);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -16,6 +15,17 @@ const CreateProduct = () => {
     let files = Array.from(e.target.files);
     const newImages = files.map((file) => URL.createObjectURL(file));
     setImages((prevImages) => [...prevImages, ...newImages]);
+  };
+
+  const handleRemoveImage = (imageToRemove) => {
+    setImages(images.filter((image) => image !== imageToRemove));
+  };
+
+  const handlePriceChange = (e) => {
+    const value = e.target.value;
+    if (value >= 0) {
+      setOriginalPrice(value);
+    }
   };
 
   const handleSubmit = (e) => {
@@ -97,8 +107,9 @@ const CreateProduct = () => {
             name="price"
             value={originalPrice}
             className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-            onChange={(e) => setOriginalPrice(e.target.value)}
+            onChange={handlePriceChange}
             placeholder="Enter your product price..."
+            min="0"
           />
         </div>
         <br />
@@ -120,12 +131,20 @@ const CreateProduct = () => {
           <div className="w-full flex items-center flex-wrap">
             {images &&
               images.map((i, index) => (
-                <img
-                  src={i}
-                  key={index}
-                  alt=""
-                  className="h-[120px] w-[120px] object-cover m-2"
-                />
+                <div key={index} className="relative">
+                  <img
+                    src={i}
+                    alt=""
+                    className="h-[120px] w-[120px] object-cover m-2"
+                  />
+                  <button
+                    type="button"
+                    className="absolute top-0 right-0 bg-red-500 text-white p-1 rounded-full"
+                    onClick={() => handleRemoveImage(i)}
+                  >
+                    X
+                  </button>
+                </div>
               ))}
           </div>
           <br />
@@ -133,7 +152,7 @@ const CreateProduct = () => {
             <input
               type="submit"
               value="Create"
-              className="mt-2 cursor-pointer appearance-none text-center block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              className="mt-2 cursor-pointer bg-[#e44343] text-white text-lg font-semibold appearance-none text-center block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             />
           </div>
         </div>
