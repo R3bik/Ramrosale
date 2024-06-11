@@ -5,7 +5,6 @@ import { MdOutlineLocalOffer } from "react-icons/md";
 import { FiPackage, FiShoppingBag } from "react-icons/fi";
 import { BiMessageSquareDetail } from "react-icons/bi";
 
-
 ///////////////////////////////////////////////////////////////////////// ADDED FOR TESTING
 
 import styles from "../../../styles/styles";
@@ -14,30 +13,28 @@ import { useAuth } from "../../../context/AuthContext";
 import { server } from "../../../server";
 import { toast } from "react-toastify";
 import axios from "axios";
-/////////////////////////////////////////////////////////////////////// 
+///////////////////////////////////////////////////////////////////////
 
 const DashboardHeader = () => {
+  ////////////////////////////////////////////////////////////////////////////// ADDED FOR TESTING
 
-////////////////////////////////////////////////////////////////////////////// ADDED FOR TESTING
+  const { isAuthenticated, user, logout } = useAuth();
 
-    const { isAuthenticated, user, logout } = useAuth();
+  const navigate = useNavigate();
 
-    const navigate = useNavigate();
+  const logoutHandler = async () => {
+    try {
+      const res = await axios.get(`${server}/user/logout`);
+      toast.success(res.data.message);
+      logout();
+      navigate("/");
+      window.location.reload(true);
+    } catch (error) {
+      toast.error("Failed to logout. Please try again.");
+    }
+  };
 
-    const logoutHandler = async () => {
-      try {
-        const res = await axios.get(`${server}/user/logout`);
-        toast.success(res.data.message);
-        logout();
-        navigate("/");
-        window.location.reload(true);
-      } catch (error) {
-        toast.error("Failed to logout. Please try again.");
-      }
-    };
-
-    // ////////////////////////////////////////////////////////////////////////////
-
+  // ////////////////////////////////////////////////////////////////////////////
 
   return (
     <div className="font-Roboto">
@@ -97,8 +94,7 @@ const DashboardHeader = () => {
               />
             </Link> */}
 
-
-{/* ///////////////////////////////////////////TESTING//////////////////////////////////////////// */}
+            {/* ///////////////////////////////////////////TESTING//////////////////////////////////////////// */}
 
             <div className={`${styles.noramlFlex}`}>
               {isAuthenticated ? (
@@ -117,15 +113,13 @@ const DashboardHeader = () => {
                   </button>
                 </div>
               ) : (
-                <Link to="/login">
+                <Link to="/shop-login">
                   <CgProfile size={30} />
                 </Link>
               )}
             </div>
 
-{/* ////////////////////////////////////////////////////////////////////////////////////////////////// */}
-
-
+            {/* ////////////////////////////////////////////////////////////////////////////////////////////////// */}
           </div>
         </div>
       </div>
