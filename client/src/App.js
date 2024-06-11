@@ -19,6 +19,7 @@ import {
   ProfilePage,
   SellerActivationPage,
   ShopCreatePage,
+  ShopLoginPage,
   SignupPage,
 } from "./routes/Routes";
 import { ShopDashboardPage, ShopCreateProduct } from "./routes/ShopRoutes";
@@ -92,6 +93,7 @@ function App() {
           />
           {/* shop Routes */}
           <Route path="/shop-create" element={<ShopCreatePage />} />
+          <Route path="/shop-login" element={<ShopLoginPage />} />
 
           <Route path="/shop/:id" element={<ShopHomePage />} />
 
@@ -99,7 +101,10 @@ function App() {
 
           <Route path="/dashboard" element={<ShopDashboardPage />} />
 
-          <Route path="/dashboard-create-product" element={<ShopCreateProduct/>} />
+          <Route
+            path="/dashboard-create-product"
+            element={<ShopCreateProduct />}
+          />
         </Routes>
         <ToastContainer
           position="top-center"
