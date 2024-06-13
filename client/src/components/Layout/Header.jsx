@@ -11,38 +11,28 @@ import { categoriesData, productData } from "../../static/data";
 import DropDown from "./DropDown";
 import Navbar from "./Navbar";
 import styles from "../../styles/styles";
-import { useAuth } from "../../context/AuthContext";
+import { useSelector } from "react-redux";
 import { CgProfile } from "react-icons/cg";
 import Cart from "../Cart/Cart";
 import Wishlist from "../Wishlist/Wishlist";
-import { server } from "../../server";
 import { toast } from "react-toastify";
-import axios from "axios";
 
 const Header = () => {
+  const { isAuthenticated, user, loading } = useSelector((state) => state.user);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchData, setSearchData] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
   const [dropDown, setDropDown] = useState(false);
   const dropdownRef = useRef(null);
-  const { isAuthenticated, user, logout } = useAuth();
 
   const [openCart, setOpencart] = useState(false);
   const [openWishlist, setOpenWishlist] = useState(false);
 
-  const navigate = useNavigate(); // Correctly use useNavigate hook
+  const navigate = useNavigate();
 
-  const logoutHandler = async () => {
-    try {
-      const res = await axios.get(`${server}/user/logout`);
-      toast.success(res.data.message);
-      logout();
-      navigate("/");
-      window.location.reload(true);
-    } catch (error) {
-      toast.error("Failed to logout. Please try again.");
-    }
-  };
+  useEffect(() => {
+    console.log("User:", user); // Debug log for user data
+  }, [user]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -72,14 +62,12 @@ const Header = () => {
     <div className="font-Roboto">
       <div className="bg-primary-black text-white h-[80px]">
         <div className="flex items-center justify-between w-11/12 mx-auto">
-          {/* logo */}
           <Link to="/">
             <h3 className="text-2xl font-bold">
               Ramro<span className="text-[#76ABAE]">Sale</span>
             </h3>
           </Link>
 
-          {/* search-box */}
           <div className="w-[50%] relative" ref={dropdownRef}>
             <input
               type="text"
@@ -114,7 +102,6 @@ const Header = () => {
             )}
           </div>
 
-          {/* seller or not */}
           <div className="w-[150px] bg-third h-[50px] my-3 flex items-center justify-center rounded-xl cursor-pointer">
             <Link to="/shop-create">
               <h1 className="text-gray-800 flex items-center  font-semibold">
@@ -125,10 +112,8 @@ const Header = () => {
         </div>
       </div>
 
-      {/* navbar */}
       <div className="bg-secondary-black text-white h-[70px] w-full flex items-center">
         <div className="flex items-center justify-between w-11/12 mx-auto">
-          {/* categories */}
           <div onClick={() => setDropDown(!dropDown)}>
             <div className="relative h-[70px] w-[270px] hidden 1000px:block text-black">
               <BiMenuAltLeft size={40} className="absolute top-3 left-2 pr-1" />
@@ -147,7 +132,7 @@ const Header = () => {
               )}
             </div>
           </div>
-          {/* navitems */}
+
           <div className="flex items-center text-lg">
             <Navbar />
           </div>
@@ -156,9 +141,7 @@ const Header = () => {
             <div className={`${styles.noramlFlex}`}>
               <div
                 className="relative cursor-pointer mr-[15px]"
-                onClick={() => {
-                  setOpenWishlist(true);
-                }}
+                onClick={() => setOpenWishlist(true)}
               >
                 <AiOutlineHeart size={30} color="rgb(255 255 255 / 83%)" />
                 <span className="absolute right-0 top-0 rounded-full bg-red-500 w-4 h-4 top right p-0 m-0 text-white font-mono text-[12px] leading-tight text-center">
@@ -184,32 +167,24 @@ const Header = () => {
           </div>
 
           <div className={`${styles.noramlFlex}`}>
-            {isAuthenticated ? (
-              <div className="relative cursor-pointer mr-[15px] flex items-center">
+            {loading ? (
+              <span>Loading...</span>
+            ) : isAuthenticated ? (
+              <div>
                 <Link to="/profile">
-                  <span className="ml-2 text-white capitalize font-semibold">
-                    {user && user.name}
-                  </span>
+                  <span>{user && user.name}</span>
                 </Link>
-
-                <button
-                  onClick={logoutHandler}
-                  className="ml-4 bg-red-500 text-white px-2 py-1 rounded"
-                >
-                  Logout
-                </button>
               </div>
             ) : (
-              <Link to="/login">
-                <CgProfile size={30} />
-              </Link>
+              <>
+                <Link to="/login" className="text-[18px] pr-[10px] text-white">
+                  <CgProfile size={30} />
+                </Link>
+              </>
             )}
           </div>
         </div>
-        {/* cart popup */}
         {openCart ? <Cart setOpenCart={setOpencart} /> : null}
-
-        {/* wishlist popup */}
         {openWishlist ? <Wishlist setOpenWishlist={setOpenWishlist} /> : null}
       </div>
     </div>

@@ -12,27 +12,27 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(false);
-  const { login } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      const response = await axios.post(
+    await axios
+      .post(
         `${server}/user/login-user`,
-        { email, password },
+        {
+          email,
+          password,
+        },
         { withCredentials: true }
-      );
-
-      // Use the login function from AuthContext to set user data
-      login(response.data.user);
-
-      toast.success("Login Success!");
-      navigate("/");
-    } catch (err) {
-      toast.error(err.response.data.message);
-      console.log(err);
-    }
+      )
+      .then((res) => {
+        toast.success("Login Success!");
+        navigate("/");
+        window.location.reload(true);
+      })
+      .catch((err) => {
+        toast.error(err.response.data.message);
+      });
   };
 
   return (

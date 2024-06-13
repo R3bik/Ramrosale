@@ -130,6 +130,7 @@ router.get(
   catchAsyncErrors(async (req, res, next) => {
     try {
       const user = await User.findById(req.user.id);
+
       if (!user) {
         return next(new ErrorHandler("User doesn't exists", 400));
       }

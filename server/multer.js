@@ -1,14 +1,16 @@
 const multer = require("multer");
 
 const storage = multer.diskStorage({
-  destination: function (req, res, cb) {
-    cd(null, "uploads/");
+  destination: function (req, file, cb) {
+    cb(null, "uploads/"); // Fixed typo: cd to cb
   },
-  filename: function (req, res, cb) {
-    const uniqueSuffix = Date.now() + "-" + Math.round.apply(Math.random * 1e9);
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9); // Fixed typo: Math.round.apply to Math.round
     const filename = file.originalname.split(".")[0];
-    cd(null, filename + "-" + uniqueSuffix + ".png");
+    cb(null, filename + "-" + uniqueSuffix + ".png"); // Fixed typo: cd to cb
   },
 });
 
-exports.upload = multer({ storage: storage });
+const upload = multer({ storage: storage });
+
+module.exports = { upload };

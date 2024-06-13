@@ -26,10 +26,11 @@ if (process.env.NODE_ENV !== "PRODUCTION") {
 // Define routes
 const user = require("./controller/user");
 const shop = require("./controller/shop");
+const product = require("./controller/product");
 
 app.use("/api/v2/user", user);
 app.use("/api/v2/shop", shop); // Ensure this line is present and correct
-
+app.use("/api/v2/product", product);
 // Error Handling Middleware
 app.use(ErrorHandler);
 
