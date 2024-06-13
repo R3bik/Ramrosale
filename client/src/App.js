@@ -21,7 +21,11 @@ import {
   ShopCreatePage,
   SignupPage,
 } from "./routes/Routes";
-import { ShopDashboardPage, ShopCreateProduct } from "./routes/ShopRoutes";
+import {
+  ShopDashboardPage,
+  ShopCreateProduct,
+  ShopAllProducts,
+} from "./routes/ShopRoutes";
 import { ShopHomePage } from "./routes/ShopRoutes";
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./routes/ProtectedRoute";
@@ -99,7 +103,15 @@ function App() {
 
           <Route path="/dashboard" element={<ShopDashboardPage />} />
 
-          <Route path="/dashboard-create-product" element={<ShopCreateProduct/>} />
+          <Route
+            path="/dashboard-create-product"
+            element={<ShopCreateProduct />}
+          />
+
+          <Route
+            path="/dashboard-products"
+            element={<ShopAllProducts />}
+          />
         </Routes>
         <ToastContainer
           position="top-center"
