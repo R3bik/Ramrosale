@@ -81,7 +81,7 @@ const DashboardSideBar = ({ active }) => {
           </h5>
         </Link>
       </div>
-
+{/* 
       <div className="w-full flex items-center p-4">
         <Link to="/dashboard-events" className="w-full flex items-center">
           <MdOutlineLocalOffer
@@ -115,7 +115,7 @@ const DashboardSideBar = ({ active }) => {
             Create Events
           </h5>
         </Link>
-      </div>
+      </div> */}
 
       <div className="w-full flex items-center p-4">
         <Link
@@ -151,7 +151,7 @@ const DashboardSideBar = ({ active }) => {
           </h5>
         </Link>
       </div>
-
+{/* 
       <div className="w-full flex items-center p-4">
         <Link to="/dashboard/coupouns" className="w-full flex items-center">
           <AiOutlineGift
@@ -182,7 +182,7 @@ const DashboardSideBar = ({ active }) => {
             Refunds
           </h5>
         </Link>
-      </div>
+      </div> */}
 
       <div className="w-full flex items-center p-4">
         <Link to="/dashboard-settings" className="w-full flex items-center">
