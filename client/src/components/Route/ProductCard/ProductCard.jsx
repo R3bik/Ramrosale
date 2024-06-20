@@ -4,15 +4,17 @@ import styles from "../../../styles/styles";
 import Ratings from "../../Products/Ratings";
 import {
   AiFillHeart,
-  AiFillStar,
+  // AiFillStar,
   AiOutlineEye,
   AiOutlineHeart,
   AiOutlineShoppingCart,
-  AiOutlineStar,
+  // AiOutlineStar,
 } from "react-icons/ai";
 import ProductDetailsCard from "../ProductDetailsCard/ProductDetailsCard";
+// import {useSelector} from "react-redux";
 
 const ProductCard = ({ data }) => {
+
   const [click, setClick] = useState(false);
   const [open, setOpen] = useState(false);
   const d = data.name;

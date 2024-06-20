@@ -18,8 +18,10 @@ import Wishlist from "../Wishlist/Wishlist";
 import { server } from "../../server";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
-const Header = () => {
+const Header = ({activeHeading}) => {
+  const { cart } = useSelector((state) => state.cart);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchData, setSearchData] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -177,7 +179,7 @@ const Header = () => {
                   color="rgb(255 255 255 / 83%)"
                 />
                 <span className="absolute right-0 top-0 rounded-full bg-green-600 w-4 h-4 top right p-0 m-0 text-white font-mono text-[12px] leading-tight text-center">
-                  {/* {cart && cart.length} */}
+                  {cart && cart.length}
                 </span>
               </div>
             </div>
