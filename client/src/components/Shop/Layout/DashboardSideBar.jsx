@@ -1,13 +1,13 @@
 import React from "react";
-import { AiOutlineFolderAdd, AiOutlineGift } from "react-icons/ai";
+import { AiOutlineFolderAdd} from "react-icons/ai";
 import { FiPackage, FiShoppingBag } from "react-icons/fi";
-import { MdOutlineLocalOffer } from "react-icons/md";
+// import { MdOutlineLocalOffer } from "react-icons/md";
 import { RxDashboard } from "react-icons/rx";
 import { Link } from "react-router-dom";
-import { VscNewFile } from "react-icons/vsc";
+// import { VscNewFile } from "react-icons/vsc";
 import { CiMoneyBill, CiSettings } from "react-icons/ci";
 import { BiMessageSquareDetail } from "react-icons/bi";
-import { HiOutlineReceiptRefund } from "react-icons/hi";
+// import { HiOutlineRece`iptRefund } from "react-icons/hi";
 
 const DashboardSideBar = ({ active }) => {
   //   const active = 1;
