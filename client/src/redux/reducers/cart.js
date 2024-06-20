@@ -10,12 +10,12 @@ const cartReducer = createReducer(initialState, (builder) => {
   builder
     .addCase("addToCart", (state, action) => {
       const item = action.payload;
-      const isItemExist = state.cart.find((i) => i._id === item._id);
+      const isItemExist = state.cart.find((i) => i.id === item.id);
 
       if (isItemExist) {
         // Update existing item
         state.cart = state.cart.map((i) =>
-          i._id === isItemExist._id ? item : i
+          i.id === isItemExist.id ? item : i
         );
       } else {
         // Add new item to the cart
@@ -25,7 +25,7 @@ const cartReducer = createReducer(initialState, (builder) => {
     })
     .addCase("removeFromCart", (state, action) => {
       const itemId = action.payload;
-      state.cart = state.cart.filter((i) => i._id !== itemId);
+      state.cart = state.cart.filter((i) => i.id !== itemId);
       localStorage.setItem("cartItems", JSON.stringify(state.cart));
     });
 });
