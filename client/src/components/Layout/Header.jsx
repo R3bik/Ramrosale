@@ -22,6 +22,8 @@ import { useSelector } from "react-redux";
 
 const Header = ({activeHeading}) => {
   const { cart } = useSelector((state) => state.cart);
+    const { wishlist } = useSelector((state) => state.wishlist);
+
   const [searchTerm, setSearchTerm] = useState("");
   const [searchData, setSearchData] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -164,7 +166,7 @@ const Header = ({activeHeading}) => {
               >
                 <AiOutlineHeart size={30} color="rgb(255 255 255 / 83%)" />
                 <span className="absolute right-0 top-0 rounded-full bg-red-500 w-4 h-4 top right p-0 m-0 text-white font-mono text-[12px] leading-tight text-center">
-                  {/* {wishlist && wishlist.length} */}
+                  {wishlist && wishlist.length}
                 </span>
               </div>
             </div>

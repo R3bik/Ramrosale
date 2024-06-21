@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "../../../styles/styles";
 import Ratings from "../../Products/Ratings";
+import { useEffect } from "react";
 import {
   AiFillHeart,
   // AiFillStar,
@@ -16,25 +17,52 @@ import {
   addToWishlist,
   removeFromWishlist,
 } from "../../../redux/actions/wishlist";
-// import {useSelector} from "react-redux";
+import {useSelector} from "react-redux";
+import { addTocart } from "../../../redux/actions/cart";
+import { toast } from "react-toastify";
+
 
 const ProductCard = ({ data }) => {
-
+  const { wishlist } = useSelector((state) => state.wishlist);
+    const { cart } = useSelector((state) => state.cart);
   const [click, setClick] = useState(false);
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const d = data.name;
   const product_name = d.replace(/\s+/g, "-");
 
-   const removeFromWishlistHandler = (data) => {
-     setClick(!click);
-     dispatch(removeFromWishlist(data));
-   };
+    useEffect(() => {
+      if (wishlist && wishlist.find((i) => i.id === data.id)) {
+        setClick(true);
+      } else {
+        setClick(false);
+      }
+    }, [wishlist,data.id]);
 
-    const addToWishlistHandler = (data) => {
-      setClick(!click);
-      dispatch(addToWishlist(data));
-    };
+  const removeFromWishlistHandler = (data) => {
+    setClick(!click);
+    dispatch(removeFromWishlist(data));
+  };
+
+  const addToWishlistHandler = (data) => {
+    setClick(!click);
+    dispatch(addToWishlist(data));
+  };
+
+  const addToCartHandler = (id) => {
+    const isItemExists = cart && cart.find((i) => i.id === id);
+    if (isItemExists) {
+      toast.error("Item already in cart!");
+    } else {
+      if (data.stock <= 1) {
+        toast.error("Product stock limited!");
+      } else {
+        const cartData = { ...data, qty: 1 };
+        dispatch(addTocart(cartData));
+        toast.success("Item added to cart successfully!");
+      }
+    }
+  };
 
   return (
     <div className="w-full h-[370px] bg-white rounded-lg shadow-sm p-3 relative cursor-pointer">
@@ -79,7 +107,7 @@ const ProductCard = ({ data }) => {
             size={22}
             className="cursor-pointer absolute right-2 top-5"
             onClick={() => removeFromWishlistHandler(data)}
-            color="red"
+            color={click ? "red" : "#333"}
             title="Remove from wishlist"
           />
         ) : (
@@ -87,7 +115,7 @@ const ProductCard = ({ data }) => {
             size={22}
             className="cursor-pointer absolute right-2 top-5"
             onClick={() => addToWishlistHandler(data)}
-            color="#333"
+            color={click ? "red" : "#333"}
             title="Add to wishlist"
           />
         )}
@@ -102,6 +130,7 @@ const ProductCard = ({ data }) => {
         <AiOutlineShoppingCart
           size={25}
           className="cursor-pointer absolute right-2 top-24"
+          onClick={() =>addToCartHandler(data.id)}
           color="#444"
           title="Add to cart"
         />
