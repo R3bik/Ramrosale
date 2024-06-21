@@ -16,10 +16,12 @@ const Cart = ({ setOpenCart }) => {
     dispatch(removeFromCart(data));
   };
 
-  const totalPrice = cart.reduce((acc, item) => acc + item.price, 0);
- const quantityChangeHandler = (data) => {
-   dispatch(addTocart(data));
- };
+  const totalPrice = cart.reduce((acc, item) => acc + item.price * item.qty, 0);
+
+  const quantityChangeHandler = (data) => {
+    dispatch(addTocart(data));
+  };
+
   return (
     <div className="fixed top-0 left-0 w-full bg-[#0000004b] h-screen z-10">
       <div className="fixed top-0 right-0 h-full w-[80%] 800px:w-[25%] bg-white flex flex-col overflow-y-scroll justify-between shadow-sm">
@@ -55,7 +57,7 @@ const Cart = ({ setOpenCart }) => {
         </div>
         <div className="px-5 mb-3">
           <div className="text-right mb-3 text-[18px]">
-            <strong>Total: </strong>${totalPrice}
+            <strong>Total: </strong>${totalPrice.toFixed(2)}
           </div>
           {/* checkout buttons */}
           <Link to="/Checkoutt">
@@ -78,7 +80,7 @@ const CartSingle = ({ data, quantityChangeHandler, removeFromCartHandler }) => {
   const totalPrice = data.price * value;
 
   const increment = (data) => {
-    if (data.stock < value) {
+    if (data.stock <= value) {
       toast.error("Product stock limited!");
     } else {
       setValue(value + 1);
@@ -88,12 +90,15 @@ const CartSingle = ({ data, quantityChangeHandler, removeFromCartHandler }) => {
   };
 
   const decrement = (data) => {
-    setValue(value === 1 ? 1 : value - 1);
-    const updateCartData = { ...data, qty: value === 1 ? 1 : value - 1 };
-    quantityChangeHandler(updateCartData);
+    if (value > 1) {
+      setValue(value - 1);
+      const updateCartData = { ...data, qty: value - 1 };
+      quantityChangeHandler(updateCartData);
+    }
   };
+
   return (
-    <div className="border-b p-4">
+    <div className="border-b p-4 relative">
       <div className="w-full flex items-center">
         <div>
           <div
@@ -102,7 +107,7 @@ const CartSingle = ({ data, quantityChangeHandler, removeFromCartHandler }) => {
           >
             <HiPlus size={18} color="#fff" />
           </div>
-          <span className="pl-[10px] text-black">{data.qty}</span>
+          <span className="pl-[10px] text-black">{value}</span>
           <div
             className="bg-[#a7abb14f] rounded-full w-[25px] h-[25px] flex items-center justify-center cursor-pointer"
             onClick={() => decrement(data)}
@@ -115,17 +120,18 @@ const CartSingle = ({ data, quantityChangeHandler, removeFromCartHandler }) => {
           alt=""
           className="w-[130px] h-min ml-2 mr-2 rounded-[5px]"
         />
-        <div className="pl-[5px]">
+        <div className="pl-[5px] flex-1">
           <h1 className="text-black">{data.name}</h1>
           <h4 className="font-[400] text-[15px] text-[#00000082]">
             ${data.price} * {value}
           </h4>
           <h4 className="font-[600] text-[17px] pt-[3px] text-[#d02222] font-Roboto">
-            Total - ${totalPrice}
+            Total - ${totalPrice.toFixed(2)}
           </h4>
         </div>
         <RxCross1
-          className="cursor-pointer text-black"
+          className="cursor-pointer text-black absolute top-2 right-2"
+          size={20}
           onClick={() => removeFromCartHandler(data)}
         />
       </div>
