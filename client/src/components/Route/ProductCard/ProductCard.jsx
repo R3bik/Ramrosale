@@ -11,14 +11,30 @@ import {
   // AiOutlineStar,
 } from "react-icons/ai";
 import ProductDetailsCard from "../ProductDetailsCard/ProductDetailsCard";
+import { useDispatch } from "react-redux";
+import {
+  addToWishlist,
+  removeFromWishlist,
+} from "../../../redux/actions/wishlist";
 // import {useSelector} from "react-redux";
 
 const ProductCard = ({ data }) => {
 
   const [click, setClick] = useState(false);
   const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
   const d = data.name;
   const product_name = d.replace(/\s+/g, "-");
+
+   const removeFromWishlistHandler = (data) => {
+     setClick(!click);
+     dispatch(removeFromWishlist(data));
+   };
+
+    const addToWishlistHandler = (data) => {
+      setClick(!click);
+      dispatch(addToWishlist(data));
+    };
 
   return (
     <div className="w-full h-[370px] bg-white rounded-lg shadow-sm p-3 relative cursor-pointer">
@@ -62,7 +78,7 @@ const ProductCard = ({ data }) => {
           <AiFillHeart
             size={22}
             className="cursor-pointer absolute right-2 top-5"
-            onClick={() => setClick(!click)}
+            onClick={() => removeFromWishlistHandler(data)}
             color="red"
             title="Remove from wishlist"
           />
@@ -70,7 +86,7 @@ const ProductCard = ({ data }) => {
           <AiOutlineHeart
             size={22}
             className="cursor-pointer absolute right-2 top-5"
-            onClick={() => setClick(!click)}
+            onClick={() => addToWishlistHandler(data)}
             color="#333"
             title="Add to wishlist"
           />
